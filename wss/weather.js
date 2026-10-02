@@ -1,7 +1,39 @@
+// ===============================
+// GPS + Open-Meteo Weather Module
+// ===============================
+
 console.log("weather.js loaded");
 
-async function fetchWeatherData(stationId, startDate, endDate) {
-    const url = `https://api.weather.gc.ca/collections/climate-daily/items?CLIMATE_IDENTIFIER=${stationId}&start=${startDate}&end=${endDate}&limit=500`;
+// -------------------------------
+// 1. Get GPS location
+// -------------------------------
+async function getUserLocation() {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject("Geolocation not supported");
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                resolve({
+                    lat: pos.coords.latitude,
+                    lon: pos.coords.longitude
+                });
+            },
+            (err) => reject(err)
+        );
+    });
+}
+
+// -------------------------------
+// 2. Fetch daily weather from Open-Meteo
+// -------------------------------
+async function fetchDailyWeather(lat, lon, startDate, endDate) {
+    const url =
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+        `&start_date=${startDate}&end_date=${endDate}` +
+        `&daily=temperature_2m_max,temperature_2m_min,precipitation_sum` +
+        `&timezone=auto`;
 
     console.log("Fetch URL:", url);
 
@@ -10,52 +42,72 @@ async function fetchWeatherData(stationId, startDate, endDate) {
 
     console.log("Raw response:", data);
 
-    return data.features || [];
+    return data.daily || null;
 }
 
-
+// -------------------------------
+// 3. Compute GDD
+// -------------------------------
 function calculateDailyGDD(tmax, tmin, base = 5) {
     const avg = (tmax + tmin) / 2;
     return Math.max(0, avg - base);
 }
 
-async function computeGDD(stationId, seedingDate) {
+async function computeGDD(seedingDate) {
     const today = new Date().toISOString().split("T")[0];
 
-    const records = await fetchWeatherData(stationId, seedingDate, today);
+    // Get GPS location
+    const { lat, lon } = await getUserLocation();
+
+    // Fetch daily weather
+    const daily = await fetchDailyWeather(lat, lon, seedingDate, today);
+
+    if (!daily || !daily.temperature_2m_max) {
+        console.log("No daily weather records found.");
+        return 0;
+    }
 
     let gddSum = 0;
-console.log("Records:", records.length);
 
-    records.forEach(day => {
-        const tmax = day.properties.MAX_TEMPERATURE;
-        const tmin = day.properties.MIN_TEMPERATURE;
+    for (let i = 0; i < daily.temperature_2m_max.length; i++) {
+        const tmax = daily.temperature_2m_max[i];
+        const tmin = daily.temperature_2m_min[i];
 
-        if (tmax !== null && tmin !== null) {
-            gddSum += calculateDailyGDD(tmax, tmin);
-        }
-    });
+        gddSum += calculateDailyGDD(tmax, tmin);
+    }
 
+    console.log("GDD Sum:", gddSum);
     return Math.round(gddSum);
 }
 
-async function computeRecentRain(stationId) {
+// -------------------------------
+// 4. Compute rainfall last 7 days
+// -------------------------------
+async function computeRecentRain() {
     const today = new Date();
     const start = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     const startDate = start.toISOString().split("T")[0];
     const endDate = today.toISOString().split("T")[0];
 
-    const records = await fetchWeatherData(stationId, startDate, endDate);
+    // Get GPS location
+    const { lat, lon } = await getUserLocation();
+
+    // Fetch daily weather
+    const daily = await fetchDailyWeather(lat, lon, startDate, endDate);
+
+    if (!daily || !daily.precipitation_sum) {
+        console.log("No rainfall records found.");
+        return 0;
+    }
 
     let rainSum = 0;
 
-    records.forEach(day => {
-        const rain = day.properties.TOTAL_PRECIPITATION;
-        if (rain !== null) {
-            rainSum += rain;
-        }
+    daily.precipitation_sum.forEach(rain => {
+        rainSum += rain || 0;
     });
 
+    console.log("Rainfall Sum:", rainSum);
     return Math.round(rainSum);
 }
+
