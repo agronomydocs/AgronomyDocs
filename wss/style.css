@@ -108,21 +108,7 @@ input:disabled {
 #predictBtn:active {
     transform: scale(0.98);
 }
-/* === Fix for placeholder text appearing under Predict button === */
 
-input {
-    background: #fcfcfc;
-    border: 1px solid #ccc;
-}
-
-input::placeholder {
-    color: #999;
-    opacity: 1;
-}
-
-#recentRain {
-    margin-bottom: 15px;
-}
 
 /* ================================
    Output Section
@@ -187,4 +173,21 @@ footer {
     padding: 15px;
     font-size: 0.85em;
     color: #666;
+
+
+   /* === Fix for placeholder text appearing under Predict button === */
+
+input {
+    background: #fcfcfc;
+    border: 1px solid #ccc;
+}
+
+input::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+#recentRain {
+    margin-bottom: 15px;
+}
 }
