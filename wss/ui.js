@@ -13,10 +13,8 @@ document.getElementById("predictBtn").addEventListener("click", () => {
 
     const threat = calculateThreatLevel(prediction, prevCut);
 
-    updateResult(`
-        Predicted Cutting (Solid-Stem): ${prediction.toFixed(1)}%
-        Threat Level: ${threat}
-    `);
+    updateResult(prediction);
+
 });
 
 function updateResult(text) {
