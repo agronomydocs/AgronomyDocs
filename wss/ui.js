@@ -1,21 +1,31 @@
-document.getElementById("predictBtn").addEventListener("click", () => {
+document.getElementById("predictBtn").addEventListener("click", async () => {
     const seedingDate = document.getElementById("seedingDate").value;
-    const gdd = parseFloat(document.getElementById("gdd").value);
     const cropStage = document.getElementById("cropStage").value;
     const prevCut = parseFloat(document.getElementById("prevCut").value) || 0;
-    const recentRain = parseFloat(document.getElementById("recentRain").value) || 0;
 
-    if (!seedingDate || isNaN(gdd) || !cropStage) {
+    if (!seedingDate || !cropStage) {
         updateResult("Please fill in all fields.");
         return;
     }
 
+    // Auto-fetch GDD
+    const gdd = await computeGDD("3034480", seedingDate); // CYQL station ID
+    document.getElementById("gdd").value = gdd;
+
+    // Auto-fetch recent rainfall
+    const recentRain = await computeRecentRain("3034480");
+    document.getElementById("recentRain").value = recentRain;
+
+    // Run your ANN model
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
+
+    // Threat level with moisture suppression
     const threat = calculateThreatLevel(prediction, prevCut, recentRain);
 
     updateResult(prediction);
     document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
 });
+
 
 function updateResult(text) {
     document.getElementById("resultBox").innerHTML = text;
