@@ -47,14 +47,26 @@
         <button id="predictBtn">Predict Sawfly Risk</button>
     </section>
 
-    <section class="output-section">
-        <h2>Prediction Output</h2>
-        <div id="resultBox" class="result-box">
-            Enter field data and click Predict.
-        </div>
-        <div id="threatLevel" class="result-box"></div>
+<section class="output-section">
+    <h2>Environmental Risk</h2>
+    <p class="explanation">
+        Based on rainfall timing, accumulated GDD, crop stage, and environmental conditions 
+        that influence sawfly survival. High environmental risk means conditions were favorable 
+        for sawfly development, regardless of population size.
+    </p>
+    <div id="resultBox" class="result-box">
+        Enter field data and click Predict.
+    </div>
 
-    </section>
+    <h2>Sawfly Threat Level</h2>
+    <p class="explanation">
+        Based on last year's cutting (population pressure) and current environmental conditions. 
+        Moisture can suppress adult flight, mating, and egg laying — so threat level may be lower 
+        even when environmental risk is high.
+    </p>
+    <div id="threatLevel" class="result-box"></div>
+</section>
+
 
     <footer>
         <p>© 2026 AgronomyDocs.ca — Wheat Stem Sawfly Predictor</p>
