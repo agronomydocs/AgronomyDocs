@@ -1,3 +1,5 @@
+console.log("ui.js loaded");
+
 document.getElementById("predictBtn").addEventListener("click", async () => {
     const seedingDate = document.getElementById("seedingDate").value;
     const cropStage = document.getElementById("cropStage").value;
