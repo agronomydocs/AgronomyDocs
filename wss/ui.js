@@ -11,11 +11,11 @@ document.getElementById("predictBtn").addEventListener("click", async () => {
     }
 
     // Auto-fetch GDD
-    const gdd = await computeGDD("3034480", seedingDate); // CYQL station ID
+    const gdd = await computeGDD(seedingDate);
     document.getElementById("gdd").value = gdd;
 
     // Auto-fetch recent rainfall
-    const recentRain = await computeRecentRain("3034480");
+  const recentRain = await computeRecentRain();
     document.getElementById("recentRain").value = recentRain;
 
     // Run your ANN model
