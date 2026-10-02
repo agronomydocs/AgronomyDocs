@@ -2,6 +2,7 @@ document.getElementById("predictBtn").addEventListener("click", () => {
     const seedingDate = document.getElementById("seedingDate").value;
     const gdd = parseFloat(document.getElementById("gdd").value);
     const cropStage = document.getElementById("cropStage").value;
+    const prevCut = parseFloat(document.getElementById("prevCut").value) || 0;
 
     if (!seedingDate || isNaN(gdd) || !cropStage) {
         updateResult("Please fill in all fields.");
@@ -9,7 +10,13 @@ document.getElementById("predictBtn").addEventListener("click", () => {
     }
 
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
-    updateResult(prediction);
+
+    const threat = calculateThreatLevel(prediction, prevCut);
+
+    updateResult(`
+        Predicted Cutting (Solid-Stem): ${prediction.toFixed(1)}%
+        Threat Level: ${threat}
+    `);
 });
 
 function updateResult(text) {
