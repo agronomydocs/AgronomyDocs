@@ -1,3 +1,5 @@
+console.log("weather.js loaded");
+
 async function fetchWeatherData(stationId, startDate, endDate) {
     const url = `https://api.weather.gc.ca/collections/climate-daily/items?CLIMATE_IDENTIFIER=${stationId}&start=${startDate}&end=${endDate}&limit=500`;
 
