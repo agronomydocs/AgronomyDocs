@@ -190,4 +190,21 @@ input::placeholder {
 #recentRain {
     margin-bottom: 15px;
 }
+/* === Fix for placeholder text appearing under Predict button === */
+
+input {
+    background: #fcfcfc;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
+
+input::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+#recentRain,
+#gdd {
+    margin-bottom: 15px;
+}
+
