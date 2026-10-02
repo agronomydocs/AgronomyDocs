@@ -14,7 +14,7 @@ document.getElementById("predictBtn").addEventListener("click", () => {
     const threat = calculateThreatLevel(prediction, prevCut);
 
     updateResult(prediction);
-
+document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
 });
 
 function updateResult(text) {
