@@ -23,29 +23,42 @@
     </header>
 
     <section class="input-section">
-        <h2>Field Inputs</h2>
+   <h3>Required Field Inputs</h3>
 
-        <label>Seeding Date</label>
-        <input type="date" id="seedingDate">
+<div class="input-group">
+    <label for="seedingDate">Seeding Date</label>
+    <input type="date" id="seedingDate" required>
+</div>
 
-        <label for="gdd">Current Accumulated Growing Degree Days (Base 5°C)</label>
-        <input type="number" id="gdd" placeholder="e.g., 780">
 <div class="input-group">
     <label for="prevCut">Previous-Year Cutting (%)</label>
-    <input type="number" id="prevCut" min="0" max="100" step="1" placeholder="e.g., 12">
+    <input type="number" id="prevCut" min="0" max="100" required>
 </div>
-        <label for="cropStage">Current Crop Stage</label>
-        <select id="cropStage">
-            <option value="">Select stage</option>
-            <option value="stem-elongation">Stem Elongation</option>
-            <option value="flag-leaf">Flag Leaf</option>
-            <option value="boot">Boot</option>
-            <option value="heading">Heading</option>
-            <option value="flowering">Flowering</option>
-        </select>
+
 <div class="input-group">
-    <label for="recentRain">Rainfall in Last 7 Days (mm)</label>
-    <input type="number" id="recentRain" min="0" step="1" placeholder="e.g., 18">
+    <label for="cropStage">Crop Stage</label>
+    <select id="cropStage" required>
+        <option value="">Select stage...</option>
+        <option value="Emergence">Emergence</option>
+        <option value="Tillering">Tillering</option>
+        <option value="Stem Elongation">Stem Elongation</option>
+        <option value="Boot">Boot</option>
+        <option value="Heading">Heading</option>
+        <option value="Flowering">Flowering</option>
+        <option value="Ripening">Ripening</option>
+    </select>
+</div>
+
+<h3>Weather Inputs (Auto-Calculated)</h3>
+
+<div class="input-group">
+    <label for="gdd">GDD (Base 5°C) — Auto-calculated (editable)</label>
+    <input type="number" id="gdd" disabled>
+</div>
+
+<div class="input-group">
+    <label for="recentRain">Rainfall (Last 7 Days) — Auto-calculated (editable)</label>
+    <input type="number" id="recentRain">
 </div>
 
         <button id="predictBtn">Predict Sawfly Risk</button>
