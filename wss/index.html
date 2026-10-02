@@ -22,47 +22,50 @@
         <p class="subtitle">AgronomyDocs.ca</p>
     </header>
 
-    <section class="input-section">
-   <h3>Required Field Inputs</h3>
+<section class="input-section">
 
-<div class="input-group">
-    <label for="seedingDate">Seeding Date</label>
-    <input type="date" id="seedingDate" required>
-</div>
+    <h3 class="section-title">Required Field Inputs</h3>
 
-<div class="input-group">
-    <label for="prevCut">Previous-Year Cutting (%)</label>
-    <input type="number" id="prevCut" min="0" max="100" required>
-</div>
+    <div class="input-group">
+        <label for="seedingDate">Seeding Date</label>
+        <input type="date" id="seedingDate" required>
+    </div>
 
-<div class="input-group">
-    <label for="cropStage">Crop Stage</label>
-    <select id="cropStage" required>
-        <option value="">Select stage...</option>
-        <option value="Emergence">Emergence</option>
-        <option value="Tillering">Tillering</option>
-        <option value="Stem Elongation">Stem Elongation</option>
-        <option value="Boot">Boot</option>
-        <option value="Heading">Heading</option>
-        <option value="Flowering">Flowering</option>
-        <option value="Ripening">Ripening</option>
-    </select>
-</div>
+    <div class="input-group">
+        <label for="prevCut">Previous-Year Cutting (%)</label>
+        <input type="number" id="prevCut" min="0" max="100" required>
+    </div>
 
-<h3>Weather Inputs (Auto-Calculated)</h3>
+    <div class="input-group">
+        <label for="cropStage">Crop Stage</label>
+        <select id="cropStage" required>
+            <option value="">Select stage...</option>
+            <option value="Emergence">Emergence</option>
+            <option value="Tillering">Tillering</option>
+            <option value="Stem Elongation">Stem Elongation</option>
+            <option value="Boot">Boot</option>
+            <option value="Heading">Heading</option>
+            <option value="Flowering">Flowering</option>
+            <option value="Ripening">Ripening</option>
+        </select>
+    </div>
 
-<div class="input-group">
-    <label for="gdd">GDD (Base 5°C) — Auto-calculated (editable)</label>
-    <input type="number" id="gdd" disabled>
-</div>
+    <h3 class="section-title">Weather Inputs (Auto-Calculated)</h3>
 
-<div class="input-group">
-    <label for="recentRain">Rainfall (Last 7 Days) — Auto-calculated (editable)</label>
-    <input type="number" id="recentRain">
-</div>
+    <div class="input-group">
+        <label for="gdd">GDD (Base 5°C) — Auto-calculated (editable)</label>
+        <input type="number" id="gdd" disabled>
+    </div>
 
-        <button id="predictBtn">Predict Sawfly Risk</button>
-    </section>
+    <div class="input-group">
+        <label for="recentRain">Rainfall (Last 7 Days) — Auto-calculated (editable)</label>
+        <input type="number" id="recentRain">
+    </div>
+
+    <button id="predictBtn">Predict Sawfly Risk</button>
+
+</section>
+
 
 <section class="output-section">
     <h2>Environmental Risk</h2>
