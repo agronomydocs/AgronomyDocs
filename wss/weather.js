@@ -65,6 +65,7 @@ async function computeGDD(seedingDate) {
     if (!daily || !daily.temperature_2m_max) {
         console.log("No daily weather records found.");
         return 0;
+    document.getElementById("gdd").value = "Loading...";
     }
 
     let gddSum = 0;
@@ -91,6 +92,7 @@ async function computeRecentRain() {
 
     const startDate = start.toISOString().split("T")[0];
     const endDate = today.toISOString().split("T")[0];
+document.getElementById("recentRain").value = "Loading...";
 
     // GPS location
     const { lat, lon } = await getUserLocation();
