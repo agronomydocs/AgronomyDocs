@@ -30,7 +30,10 @@
 
         <label>Growing Degree Days (Base 5°C)</label>
         <input type="number" id="gdd" placeholder="e.g., 780">
-
+<div class="input-group">
+    <label for="prevCut">Previous-Year Cutting (%)</label>
+    <input type="number" id="prevCut" min="0" max="100" step="1" placeholder="e.g., 12">
+</div>
         <label>Crop Stage</label>
         <select id="cropStage">
             <option value="">Select stage</option>
