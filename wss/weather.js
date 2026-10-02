@@ -20,6 +20,7 @@ async function computeGDD(stationId, seedingDate) {
     const records = await fetchWeatherData(stationId, seedingDate, today);
 
     let gddSum = 0;
+console.log("Records:", records.length);
 
     records.forEach(day => {
         const tmax = day.properties.MAX_TEMPERATURE;
