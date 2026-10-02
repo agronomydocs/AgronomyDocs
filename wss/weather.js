@@ -74,6 +74,8 @@ async function computeGDD(seedingDate) {
         const tmin = daily.temperature_2m_min[i];
 
         gddSum += calculateDailyGDD(tmax, tmin);
+        console.log("Days returned:", daily.temperature_2m_max.length);
+
     }
 
     console.log("GDD Sum:", gddSum);
