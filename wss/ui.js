@@ -10,13 +10,13 @@ document.getElementById("predictBtn").addEventListener("click", async () => {
         return;
     }
 
-    // Auto-fetch GDD
-    const gdd = await computeGDD(seedingDate);
-    document.getElementById("gdd").value = gdd;
+   // Auto-fetch GDD (requires seeding date)
+const gdd = await computeGDD(seedingDate);
+document.getElementById("gdd").value = gdd;
 
-    // Auto-fetch recent rainfall
-  const recentRain = await computeRecentRain();
-    document.getElementById("recentRain").value = recentRain;
+// Auto-fetch recent rainfall
+const recentRain = await computeRecentRain();
+document.getElementById("recentRain").value = recentRain;
 
     // Run your ANN model
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
