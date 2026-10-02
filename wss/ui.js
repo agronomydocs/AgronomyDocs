@@ -47,6 +47,9 @@ threatBox.classList.remove("low", "moderate", "high");
 
 // Add new class based on threat
 threatBox.classList.add(threat.toLowerCase());
+const resultBox = document.getElementById("resultBox");
+resultBox.classList.add("flash");
+setTimeout(() => resultBox.classList.remove("flash"), 700);
 
 });
 
