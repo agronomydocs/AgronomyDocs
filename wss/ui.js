@@ -39,6 +39,15 @@ document.getElementById("recentRain").value = recentRain;
 
     updateResult(prediction);
     document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
+    // Apply color coding
+const threatBox = document.getElementById("threatLevel");
+
+// Remove previous classes
+threatBox.classList.remove("low", "moderate", "high");
+
+// Add new class based on threat
+threatBox.classList.add(threat.toLowerCase());
+
 });
 
 
