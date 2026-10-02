@@ -3,11 +3,16 @@ console.log("weather.js loaded");
 async function fetchWeatherData(stationId, startDate, endDate) {
     const url = `https://api.weather.gc.ca/collections/climate-daily/items?CLIMATE_IDENTIFIER=${stationId}&start=${startDate}&end=${endDate}&limit=500`;
 
+    console.log("Fetch URL:", url);
+
     const response = await fetch(url);
     const data = await response.json();
 
+    console.log("Raw response:", data);
+
     return data.features || [];
 }
+
 
 function calculateDailyGDD(tmax, tmin, base = 5) {
     const avg = (tmax + tmin) / 2;
