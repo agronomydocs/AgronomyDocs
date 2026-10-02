@@ -33,14 +33,17 @@ document.getElementById("recentRain").value = recentRain;
 
     // Run your ANN model
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
+// Threat level with moisture suppression
+const threat = calculateThreatLevel(prediction, prevCut, recentRain);
 
-    // Threat level with moisture suppression
-    const threat = calculateThreatLevel(prediction, prevCut, recentRain);
+updateResult(prediction);
+document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
 
-    updateResult(prediction);
-    document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
-    // Apply color coding
+// Apply color coding
 const threatBox = document.getElementById("threatLevel");
+threatBox.classList.remove("low", "moderate", "high");
+threatBox.classList.add(threat.toLowerCase());
+
 
 // Remove previous classes
 threatBox.classList.remove("low", "moderate", "high");
