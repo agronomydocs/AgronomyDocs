@@ -1,3 +1,5 @@
+console.log("app.js loaded");
+
 function runSawflyModel(seedingDate, gdd, cropStage) {
 
     // Placeholder model logic — replace with ANN later
