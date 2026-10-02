@@ -1,6 +1,6 @@
-// ===============================
-// GPS + Open-Meteo Weather Module
-// ===============================
+// ==========================================
+// GPS + Open-Meteo Historical Weather Module
+// ==========================================
 
 console.log("weather.js loaded");
 
@@ -26,11 +26,11 @@ async function getUserLocation() {
 }
 
 // -------------------------------
-// 2. Fetch daily weather from Open-Meteo
+// 2. Fetch historical daily weather
 // -------------------------------
-async function fetchDailyWeather(lat, lon, startDate, endDate) {
+async function fetchHistoricalWeather(lat, lon, startDate, endDate) {
     const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+        `https://archive-api.open-meteo.com/v1/archive?latitude=${lat}&longitude=${lon}` +
         `&start_date=${startDate}&end_date=${endDate}` +
         `&daily=temperature_2m_max,temperature_2m_min,precipitation_sum` +
         `&timezone=auto`;
@@ -46,7 +46,7 @@ async function fetchDailyWeather(lat, lon, startDate, endDate) {
 }
 
 // -------------------------------
-// 3. Compute GDD
+// 3. Compute GDD (Base 5°C)
 // -------------------------------
 function calculateDailyGDD(tmax, tmin, base = 5) {
     const avg = (tmax + tmin) / 2;
@@ -56,11 +56,11 @@ function calculateDailyGDD(tmax, tmin, base = 5) {
 async function computeGDD(seedingDate) {
     const today = new Date().toISOString().split("T")[0];
 
-    // Get GPS location
+    // GPS location
     const { lat, lon } = await getUserLocation();
 
-    // Fetch daily weather
-    const daily = await fetchDailyWeather(lat, lon, seedingDate, today);
+    // Historical weather
+    const daily = await fetchHistoricalWeather(lat, lon, seedingDate, today);
 
     if (!daily || !daily.temperature_2m_max) {
         console.log("No daily weather records found.");
@@ -90,11 +90,11 @@ async function computeRecentRain() {
     const startDate = start.toISOString().split("T")[0];
     const endDate = today.toISOString().split("T")[0];
 
-    // Get GPS location
+    // GPS location
     const { lat, lon } = await getUserLocation();
 
-    // Fetch daily weather
-    const daily = await fetchDailyWeather(lat, lon, startDate, endDate);
+    // Historical weather
+    const daily = await fetchHistoricalWeather(lat, lon, startDate, endDate);
 
     if (!daily || !daily.precipitation_sum) {
         console.log("No rainfall records found.");
