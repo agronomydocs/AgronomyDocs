@@ -1,4 +1,17 @@
 console.log("ui.js loaded");
+window.addEventListener("load", async () => {
+    const recentRain = await computeRecentRain();
+    document.getElementById("recentRain").value = recentRain;
+});
+document.getElementById("seedingDate").addEventListener("change", async () => {
+    const seedingDate = document.getElementById("seedingDate").value;
+
+    if (seedingDate) {
+        const gdd = await computeGDD(seedingDate);
+        document.getElementById("gdd").value = gdd;
+        document.getElementById("gdd").disabled = false;
+    }
+});
 
 document.getElementById("predictBtn").addEventListener("click", async () => {
     const seedingDate = document.getElementById("seedingDate").value;
