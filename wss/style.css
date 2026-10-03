@@ -150,25 +150,26 @@ input:disabled {
     from { background-color: #dfffe0; }
     to { background-color: #f0f0f0; }
 }
-.risk-low {
+.result-box.risk-low {
     background-color: #e6f4ea;   /* soft green */
     border-left: 6px solid #4caf50;
 }
 
-.risk-moderate {
+.result-box.risk-moderate {
     background-color: #fff8e1;   /* amber */
     border-left: 6px solid #ffb300;
 }
 
-.risk-high {
+.result-box.risk-high {
     background-color: #fdecea;   /* light red */
     border-left: 6px solid #f44336;
 }
 
-.risk-extreme {
+.result-box.risk-extreme {
     background-color: #fbe9e7;   /* deeper red */
     border-left: 6px solid #d32f2f;
 }
+
 
 /* ================================
    Threat Level Color Coding
