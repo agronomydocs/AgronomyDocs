@@ -33,6 +33,7 @@ document.getElementById("recentRain").value = recentRain;
 
     // Run your ANN model
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
+    
 // Threat level with moisture suppression
 const threat = calculateThreatLevel(prediction, prevCut, recentRain);
 
@@ -45,7 +46,6 @@ else if (threat === "Extreme") icon = "🛑";
 
 // Update threat text with icon
 document.getElementById("threatLevel").innerText = `${icon} Threat Level: ${threat}`;
-
 
 // Apply color coding
 const threatBox = document.getElementById("threatLevel");
