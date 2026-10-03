@@ -46,14 +46,7 @@ h1, h2, h3 {
 input:hover, select:hover {
     border-color: #2a6f37;
 }
-.threat-box {
-    background: #f0f0f0;
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    font-size: 1.1em;
-    min-height: 40px;
-}
+
 
 /* ================================
    Input Section
@@ -157,6 +150,14 @@ input:disabled {
 @keyframes flash-bg {
     from { background-color: #dfffe0; }
     to { background-color: #f0f0f0; }
+}
+.threat-box {
+    background: #f0f0f0;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    min-height: 40px;
 }
 .threat-box.risk-low {
     background-color: #e6f4ea;   /* soft green */
