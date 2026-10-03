@@ -41,8 +41,26 @@ document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
 
 // Apply color coding
 const threatBox = document.getElementById("threatLevel");
-threatBox.classList.remove("low", "moderate", "high");
-threatBox.classList.add(threat.toLowerCase());
+
+// Remove previous risk classes
+threatBox.classList.remove(
+    "risk-low",
+    "risk-moderate",
+    "risk-high",
+    "risk-extreme"
+);
+
+// Add new class based on threat
+if (threat === "Low") {
+    threatBox.classList.add("risk-low");
+} else if (threat === "Moderate") {
+    threatBox.classList.add("risk-moderate");
+} else if (threat === "High") {
+    threatBox.classList.add("risk-high");
+} else if (threat === "Extreme") {
+    threatBox.classList.add("risk-extreme");
+}
+
 
 
 // Remove previous classes
