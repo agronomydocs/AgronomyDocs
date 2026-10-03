@@ -18,69 +18,59 @@ document.getElementById("predictBtn").addEventListener("click", async () => {
     let cropStage = document.getElementById("cropStage").value;
     const prevCut = parseFloat(document.getElementById("prevCut").value) || 0;
 
-const resultBox = document.getElementById("resultBox");
+    // Declare resultBox ONCE
+    const resultBox = document.getElementById("resultBox");
 
-// Only show the “fill in all fields” message if the box does NOT already contain a prediction
-if (!seedingDate || !cropStage) {
-    if (!resultBox.innerHTML.includes("Risk")) {
-        updateResult("<span style='color:red;'>Please fill in all fields.</span>");
+    // Validation guard
+    if (!seedingDate || !cropStage) {
+        if (!resultBox.innerHTML.includes("Risk")) {
+            updateResult("<span style='color:red;'>Please fill in all fields.</span>");
+        }
+        return;
     }
-    return;
-}
 
+    // Auto-fetch GDD
+    let gdd = await computeGDD(seedingDate);
+    document.getElementById("gdd").value = gdd;
 
-   // Auto-fetch GDD (requires seeding date)
-let gdd = await computeGDD(seedingDate);
-document.getElementById("gdd").value = gdd;
+    // Auto-fetch recent rainfall
+    const recentRain = await computeRecentRain();
+    document.getElementById("recentRain").value = recentRain;
 
-// Auto-fetch recent rainfall
-const recentRain = await computeRecentRain();
-document.getElementById("recentRain").value = recentRain;
-
-    // Run your ANN model
+    // Run model
     cropStage = cropStage.toLowerCase();
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
-    
-// Threat level with moisture suppression
-const threat = calculateThreatLevel(prediction, prevCut, recentRain);
 
-// Icon mapping
-let icon = "";
-if (threat === "Low") icon = "🌱";
-else if (threat === "Moderate") icon = "⚠️";
-else if (threat === "High") icon = "🔥";
-else if (threat === "Extreme") icon = "🛑";
+    // Write Environmental Risk
+    updateResult(prediction);
 
-// Update threat text with icon
-document.getElementById("threatLevel").innerText = `${icon} Threat Level: ${threat}`;
+    // Flash animation
+    resultBox.classList.add("flash");
+    setTimeout(() => resultBox.classList.remove("flash"), 700);
 
-// Apply color coding
-const threatBox = document.getElementById("threatLevel");
+    // Threat level with moisture suppression
+    const threat = calculateThreatLevel(prediction, prevCut, recentRain);
 
-// Remove previous risk classes
-threatBox.classList.remove(
-    "risk-low",
-    "risk-moderate",
-    "risk-high",
-    "risk-extreme"
-);
+    // Icon mapping
+    let icon = "";
+    if (threat === "Low") icon = "🌱";
+    else if (threat === "Moderate") icon = "⚠️";
+    else if (threat === "High") icon = "🔥";
+    else if (threat === "Extreme") icon = "🛑";
 
-// Add new class based on threat
-if (threat === "Low") {
-    threatBox.classList.add("risk-low");
-} else if (threat === "Moderate") {
-    threatBox.classList.add("risk-moderate");
-} else if (threat === "High") {
-    threatBox.classList.add("risk-high");
-} else if (threat === "Extreme") {
-    threatBox.classList.add("risk-extreme");
-}
+    // Update threat text with icon
+    document.getElementById("threatLevel").innerText = `${icon} Threat Level: ${threat}`;
 
-const resultBox = document.getElementById("resultBox");
-resultBox.classList.add("flash");
-setTimeout(() => resultBox.classList.remove("flash"), 700);
+    // Apply color coding
+    const threatBox = document.getElementById("threatLevel");
+    threatBox.classList.remove("risk-low", "risk-moderate", "risk-high", "risk-extreme");
 
+    if (threat === "Low") threatBox.classList.add("risk-low");
+    else if (threat === "Moderate") threatBox.classList.add("risk-moderate");
+    else if (threat === "High") threatBox.classList.add("risk-high");
+    else if (threat === "Extreme") threatBox.classList.add("risk-extreme");
 });
+
 
 
 function updateResult(text) {
