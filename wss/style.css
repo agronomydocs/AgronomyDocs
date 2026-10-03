@@ -150,22 +150,22 @@ input:disabled {
     from { background-color: #dfffe0; }
     to { background-color: #f0f0f0; }
 }
-.result-box.risk-low {
+.threat-box.risk-low {
     background-color: #e6f4ea;   /* soft green */
     border-left: 6px solid #4caf50;
 }
 
-.result-box.risk-moderate {
+.threat-box.risk-moderate {
     background-color: #fff8e1;   /* amber */
     border-left: 6px solid #ffb300;
 }
 
-.result-box.risk-high {
+.threat-box.risk-high {
     background-color: #fdecea;   /* light red */
     border-left: 6px solid #f44336;
 }
 
-.result-box.risk-extreme {
+.threat-box.risk-extreme {
     background-color: #fbe9e7;   /* deeper red */
     border-left: 6px solid #d32f2f;
 }
