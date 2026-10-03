@@ -92,16 +92,15 @@ function calculateThreatLevel(prediction, prevCut, recentRain) {
         threat = "Moderate";
     }
 
-    // Environmental modifier from model prediction
-    if (prediction > 20 && threat !== "High") {
+    // Environmental modifier from model prediction (category-based)
+    if (prediction.includes("Moderate") && threat !== "High") {
         threat = "Moderate";
     }
-    if (prediction > 35) {
+    if (prediction.includes("High")) {
         threat = "High";
     }
 
     // Moisture suppression logic
-    // High rainfall suppresses flight, mating, and oviposition
     if (recentRain >= 10 && threat === "High") {
         threat = "Moderate";
     }
@@ -111,4 +110,5 @@ function calculateThreatLevel(prediction, prevCut, recentRain) {
 
     return threat;
 }
+
 
