@@ -34,6 +34,7 @@ const recentRain = await computeRecentRain();
 document.getElementById("recentRain").value = recentRain;
 
     // Run your ANN model
+    cropStage = cropStage.toLowerCase();
     const prediction = runSawflyModel(seedingDate, gdd, cropStage);
     
 // Threat level with moisture suppression
