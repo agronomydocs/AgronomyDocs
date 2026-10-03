@@ -17,7 +17,7 @@ document.getElementById("seedingDate").addEventListener("change", async () => {
 
 document.getElementById("predictBtn").addEventListener("click", async () => {
     const seedingDate = document.getElementById("seedingDate").value;
-    const cropStage = document.getElementById("cropStage").value;
+    let cropStage = document.getElementById("cropStage").value;
     const prevCut = parseFloat(document.getElementById("prevCut").value) || 0;
 
     if (!seedingDate || !cropStage) {
