@@ -2,6 +2,8 @@ console.log("ui.js loaded");
 window.addEventListener("load", async () => {
     const recentRain = await computeRecentRain();
     document.getElementById("recentRain").value = recentRain;
+    updateResult("Enter field data and click Predict.");
+
 });
 document.getElementById("seedingDate").addEventListener("change", async () => {
     const seedingDate = document.getElementById("seedingDate").value;
