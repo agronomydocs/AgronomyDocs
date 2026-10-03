@@ -18,10 +18,16 @@ document.getElementById("predictBtn").addEventListener("click", async () => {
     let cropStage = document.getElementById("cropStage").value;
     const prevCut = parseFloat(document.getElementById("prevCut").value) || 0;
 
-    if (!seedingDate || !cropStage) {
-       updateResult("<span style='color:red;'>Please fill in all fields.</span>");
-        return;
+const resultBox = document.getElementById("resultBox");
+
+// Only show the “fill in all fields” message if the box does NOT already contain a prediction
+if (!seedingDate || !cropStage) {
+    if (!resultBox.innerHTML.includes("Risk")) {
+        updateResult("<span style='color:red;'>Please fill in all fields.</span>");
     }
+    return;
+}
+
 
    // Auto-fetch GDD (requires seeding date)
 let gdd = await computeGDD(seedingDate);
