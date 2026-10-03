@@ -26,7 +26,7 @@ document.getElementById("predictBtn").addEventListener("click", async () => {
     }
 
    // Auto-fetch GDD (requires seeding date)
-const gdd = await computeGDD(seedingDate);
+let gdd = await computeGDD(seedingDate);
 document.getElementById("gdd").value = gdd;
 
 // Auto-fetch recent rainfall
