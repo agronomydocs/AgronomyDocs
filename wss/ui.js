@@ -36,8 +36,16 @@ document.getElementById("recentRain").value = recentRain;
 // Threat level with moisture suppression
 const threat = calculateThreatLevel(prediction, prevCut, recentRain);
 
-updateResult(prediction);
-document.getElementById("threatLevel").innerText = `Threat Level: ${threat}`;
+// Icon mapping
+let icon = "";
+if (threat === "Low") icon = "🌱";
+else if (threat === "Moderate") icon = "⚠️";
+else if (threat === "High") icon = "🔥";
+else if (threat === "Extreme") icon = "🛑";
+
+// Update threat text with icon
+document.getElementById("threatLevel").innerText = `${icon} Threat Level: ${threat}`;
+
 
 // Apply color coding
 const threatBox = document.getElementById("threatLevel");
