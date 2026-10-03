@@ -19,7 +19,7 @@ document.getElementById("predictBtn").addEventListener("click", async () => {
     const prevCut = parseFloat(document.getElementById("prevCut").value) || 0;
 
     if (!seedingDate || !cropStage) {
-        updateResult("Please fill in all fields.");
+       updateResult("<span style='color:red;'>Please fill in all fields.</span>");
         return;
     }
 
